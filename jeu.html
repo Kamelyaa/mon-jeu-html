@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification du mot de passe</title>
+    <link rel="stylesheet" href="assets\styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Créer un mot de passe</h1>
+        <input type="password" id="password" placeholder="Entrez un mot de passe" required>
+        <button onclick="checkPassword()">Vérifier</button>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        // Fonction pour vérifier le mot de passe
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const result = evaluatePassword(password);  // Appel à la fonction de vérification du mot de passe
+            const feedback = result.feedback;
+
+            // Rediriger vers la page des résultats avec les paramètres dans l'URL
+            window.location.href = `resultats.html?result=${result.result}&feedback=${encodeURIComponent(feedback)}`;
+        }
+
+        // Fonction d'évaluation du mot de passe
+        function evaluatePassword(password) {
+            let result = '';
+            let feedback = '';
+
+            // Vérification de la longueur du mot de passe
+            if (password.length < 8) {
+                result = 'Trop faible';
+                feedback = 'Le mot de passe doit contenir au moins 8 caractères.';
+            } else {
+                // Vérification de la présence de majuscules, minuscules, chiffres et caractères spéciaux
+                if (!/[A-Z]/.test(password)) {
+                    result = 'Moyenne';
+                    feedback = 'Ajoutez des majuscules à votre mot de passe.';
+                } else if (!/[a-z]/.test(password)) {
+                    result = 'Moyenne';
+                    feedback = 'Ajoutez des minuscules à votre mot de passe.';
+                } else if (!/\d/.test(password)) {
+                    result = 'Moyenne';
+                    feedback = 'Ajoutez des chiffres à votre mot de passe.';
+                } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                    result = 'Moyenne';
+                    feedback = 'Ajoutez des caractères spéciaux à votre mot de passe.';
+                } else {
+                    result = 'Fort';
+                    feedback = 'Votre mot de passe est robuste !';
+                }
+            }
+
+            return { result, feedback };
+        }
+    </script>
+</body>
+
+</html>

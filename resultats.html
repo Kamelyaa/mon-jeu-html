@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la vérification du mot de passe</title>
+    <link rel="stylesheet" href="assets\styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Résultats de la vérification</h1>
+        <p id="resultat"></p>
+        <p id="feedback"></p>
+        <button onclick="goBack()">Retour au jeu</button>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        // Récupérer les résultats envoyés depuis le jeu
+        const urlParams = new URLSearchParams(window.location.search);
+        const result = urlParams.get('result');
+        const feedback = urlParams.get('feedback');
+
+        // Afficher les résultats sur la page
+        document.getElementById('resultat').textContent = `Résultat : ${result}`;
+        document.getElementById('feedback').textContent = `Feedback : ${feedback}`;
+
+        // Fonction pour revenir au jeu
+        function goBack() {
+            window.location.href = "jeu.html";
+        }
+    </script>
+</body>
+
+</html>
